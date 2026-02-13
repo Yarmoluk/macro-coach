@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacroCoach AI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d2ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #999;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #00d2ff, #7b2ff7);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(123, 47, 247, 0.4);
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .chat-window {
+            background: #111;
+            border-radius: 16px;
+            border: 1px solid #222;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .chat-header {
+            background: #1a1a2e;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .chat-header .dot {
+            width: 10px;
+            height: 10px;
+            background: #00d2ff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .chat-header span {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .messages {
+            padding: 20px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.4s forwards;
+        }
+
+        .msg.bot {
+            background: #1a1a2e;
+            border: 1px solid #2a2a4e;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg.user {
+            background: linear-gradient(135deg, #7b2ff7, #00d2ff);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .msg strong { color: #00d2ff; }
+        .msg.user strong { color: #fff; }
+
+        .msg table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0 4px;
+            font-size: 0.85rem;
+        }
+
+        .msg th, .msg td {
+            text-align: left;
+            padding: 6px 10px;
+            border-bottom: 1px solid #2a2a4e;
+        }
+
+        .msg th {
+            color: #00d2ff;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg:nth-child(1) { animation-delay: 0.3s; }
+        .msg:nth-child(2) { animation-delay: 1.5s; }
+        .msg:nth-child(3) { animation-delay: 3s; }
+        .msg:nth-child(4) { animation-delay: 5s; }
+        .msg:nth-child(5) { animation-delay: 7s; }
+        .msg:nth-child(6) { animation-delay: 9s; }
+        .msg:nth-child(7) { animation-delay: 11s; }
+
+        .typing {
+            align-self: flex-start;
+            padding: 12px 20px;
+            background: #1a1a2e;
+            border-radius: 16px;
+            border: 1px solid #2a2a4e;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            animation: fadeIn 0.4s forwards;
+            animation-delay: 12.5s;
+        }
+
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background: #555;
+            border-radius: 50%;
+            animation: bounce 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        .input-bar {
+            display: flex;
+            padding: 12px 16px;
+            border-top: 1px solid #222;
+            background: #0d0d0d;
+            gap: 10px;
+        }
+
+        .input-bar input {
+            flex: 1;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 24px;
+            padding: 10px 18px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .input-bar input:focus { border-color: #7b2ff7; }
+
+        .input-bar button {
+            background: linear-gradient(135deg, #7b2ff7, #00d2ff);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .input-bar button:hover { transform: scale(1.1); }
+
+        .features {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .feature {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .feature:hover { border-color: #7b2ff7; }
+
+        .feature h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .feature p {
+            font-size: 0.85rem;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #444;
+            font-size: 0.8rem;
+            border-top: 1px solid #151515;
+        }
+
+        .footer a { color: #7b2ff7; text-decoration: none; }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .features { grid-template-columns: 1fr; }
+            .msg { max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>MacroCoach AI</h1>
+    <p>Your AI nutrition coach. Macros, meals, shopping lists — personalized to you. Paste the prompt into any AI chat and go.</p>
+    <a href="https://github.com/Yarmoluk/macro-coach" class="cta-btn">Get the Prompt</a>
+</div>
+
+<div class="chat-container">
+    <div class="chat-window">
+        <div class="chat-header">
+            <div class="dot"></div>
+            <span>MacroCoach</span>
+        </div>
+        <div class="messages">
+            <div class="msg bot">
+                <strong>Welcome to MacroCoach.</strong><br>
+                I'm your nutrition coach. I can calculate your macros, build meal plans, create shopping lists, and recommend supplements — all personalized to you.<br><br>
+                Tell me as much or as little as you'd like. What's your goal?
+            </div>
+            <div class="msg user">
+                I want to get lean — visible abs by summer. I'm 185 lbs, 5'11", and I lift 4x a week. Budget is tight.
+            </div>
+            <div class="msg bot">
+                Got it. Here are your numbers:<br><br>
+                <table>
+                    <tr><th>Metric</th><th>Value</th></tr>
+                    <tr><td>BMR</td><td>1,847 cal</td></tr>
+                    <tr><td>TDEE</td><td>3,186 cal</td></tr>
+                    <tr><td>Fat Loss Target</td><td>2,686 cal/day</td></tr>
+                    <tr><td>Protein</td><td>185g</td></tr>
+                    <tr><td>Fat</td><td>65g</td></tr>
+                    <tr><td>Carbs</td><td>288g</td></tr>
+                </table>
+                At a 500 cal deficit you're looking at ~1 lb/week. Abs visible around 12% body fat — you'd hit that by mid-June. Want me to build a meal plan?
+            </div>
+            <div class="msg user">
+                Yeah, keep it cheap. I hate cooking fish.
+            </div>
+            <div class="msg bot">
+                No fish, budget-first. Here's a sample day:<br><br>
+                <strong>Meal 1</strong> — 4 eggs + 2 toast + banana (38g P)<br>
+                <strong>Meal 2</strong> — Chicken thigh + rice + broccoli (48g P)<br>
+                <strong>Meal 3</strong> — Turkey chili w/ beans (42g P)<br>
+                <strong>Meal 4</strong> — Greek yogurt + whey + berries (40g P)<br>
+                <strong>Snack</strong> — Cottage cheese + almonds (17g P)<br><br>
+                <strong>Total: 2,690 cal | 185g P | 67g F | 285g C</strong><br><br>
+                Estimated grocery cost: ~$55/week. Want the full shopping list formatted for Walmart Pickup?
+            </div>
+            <div class="msg user">
+                I just got back from vacation — ate like garbage for a week.
+            </div>
+            <div class="msg bot">
+                No stress — let's just do the math forward.<br><br>
+                Rough surplus of ~5,000 cal over the week? We spread that over 14 days — that's only an extra 150 cal/day deficit. Barely noticeable.<br><br>
+                <strong>This week's adjustments:</strong><br>
+                - Calories: 2,536 (down 150)<br>
+                - Protein bumped to 200g (protect muscle)<br>
+                - Add 2,000 extra steps/day (walk, don't cardio)<br><br>
+                This pushes your abs timeline from June 15 to ~June 29. Two weeks. That's it. Want the updated meal plan?
+            </div>
+            <div class="msg user">
+                It's February, freezing. Any supplement recs?
+            </div>
+            <div class="typing">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="input-bar">
+            <input type="text" placeholder="Tell MacroCoach your goal..." disabled>
+            <button>&#8593;</button>
+        </div>
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature">
+        <h3>Macro Calculator</h3>
+        <p>BMR, TDEE, protein/carb/fat — calculated from your stats with the math shown.</p>
+    </div>
+    <div class="feature">
+        <h3>Meal Plans</h3>
+        <p>Protein-first, budget-friendly meals matched to your cooking skill and preferences.</p>
+    </div>
+    <div class="feature">
+        <h3>Shopping Lists</h3>
+        <p>Organized by store section. Ready for Walmart Pickup, Instacart, or Kroger ClickList.</p>
+    </div>
+    <div class="feature">
+        <h3>Smart Supplements</h3>
+        <p>Evidence-based only. Adapts to season, activity level, and how you're feeling.</p>
+    </div>
+    <div class="feature">
+        <h3>Vacation Recovery</h3>
+        <p>Went off plan? No guilt. Spread the deficit over 2 weeks and keep moving.</p>
+    </div>
+    <div class="feature">
+        <h3>Weekly Check-Ins</h3>
+        <p>Adjusts your macros, meals, and plan based on real progress and feedback.</p>
+    </div>
+</div>
+
+<div class="footer">
+    Built by <a href="https://github.com/Yarmoluk">Daniel Yarmoluk</a> &middot;
+    <a href="https://github.com/Yarmoluk/macro-coach">View on GitHub</a> &middot;
+    Paste the prompt into ChatGPT, Claude, or any AI
+</div>
+
+</body>
+</html>
