@@ -1,0 +1,101 @@
+ConceptID,ConceptName,DependencyList,CategoryID,CategoryLabel
+1,Calories,,1,Foundations
+2,Macronutrients,1,1,Foundations
+3,Protein,2,1,Foundations
+4,Carbohydrates,2,1,Foundations
+5,Fats,2,1,Foundations
+6,Micronutrients,1,1,Foundations
+7,Hydration,1,1,Foundations
+8,BMR,1,2,Body Metrics
+9,TDEE,8|10,2,Body Metrics
+10,Activity Level,1,2,Body Metrics
+11,Body Composition,3|5,2,Body Metrics
+12,Lean Body Mass,11,2,Body Metrics
+13,Body Fat Percentage,11,2,Body Metrics
+14,Caloric Surplus,9,3,Energy Balance
+15,Caloric Deficit,9,3,Energy Balance
+16,Maintenance Calories,9,3,Energy Balance
+17,Protein Intake Target,3|12,4,Macro Targets
+18,Fat Intake Minimum,5|9,4,Macro Targets
+19,Carb Intake Calculation,4|17|18|9,4,Macro Targets
+20,Macro Ratio,17|18|19,4,Macro Targets
+21,Meal Timing,20,5,Meal Planning
+22,Meal Frequency,20,5,Meal Planning
+23,Protein Per Meal,17|22,5,Meal Planning
+24,Pre-Workout Nutrition,21|4|3,5,Meal Planning
+25,Post-Workout Nutrition,21|3|4,5,Meal Planning
+26,Complete Protein Sources,3,6,Food Knowledge
+27,Incomplete Protein Sources,3,6,Food Knowledge
+28,Protein Combining,26|27,6,Food Knowledge
+29,Healthy Fat Sources,5,6,Food Knowledge
+30,Complex Carb Sources,4,6,Food Knowledge
+31,Simple Carb Sources,4,6,Food Knowledge
+32,Fiber,4,6,Food Knowledge
+33,Glycemic Index,30|31,6,Food Knowledge
+34,Food Labels,2|6,6,Food Knowledge
+35,Serving Sizes,34,6,Food Knowledge
+36,Calorie Density,1|35,6,Food Knowledge
+37,Budget Protein Sources,26|36,7,Practical Skills
+38,Meal Prep Basics,22|23,7,Practical Skills
+39,Batch Cooking,38,7,Practical Skills
+40,Food Storage,38,7,Practical Skills
+41,Shopping List Creation,37|38,7,Practical Skills
+42,Store Section Navigation,41,7,Practical Skills
+43,Cost Per Gram Protein,37|35,7,Practical Skills
+44,Seasonal Produce,6|36,7,Practical Skills
+45,Store Brand Equivalents,41|43,7,Practical Skills
+46,Fat Loss Strategy,15|17|20,8,Goal Strategies
+47,Muscle Gain Strategy,14|17|20,8,Goal Strategies
+48,Body Recomposition,46|47,8,Goal Strategies
+49,Rate of Weight Loss,46|12,8,Goal Strategies
+50,Rate of Muscle Gain,47|12,8,Goal Strategies
+51,Progressive Overload,47,8,Goal Strategies
+52,Training Splits,51,8,Goal Strategies
+53,Cardio Types,10|15,8,Goal Strategies
+54,NEAT,10|15,8,Goal Strategies
+55,Six Pack Timeline,13|46|54,8,Goal Strategies
+56,Creatine,51|3,9,Supplements
+57,Whey Protein,17|43,9,Supplements
+58,Vitamin D,6|44,9,Supplements
+59,Omega-3,29|6,9,Supplements
+60,Magnesium,6,9,Supplements
+61,Zinc,6,9,Supplements
+62,Electrolytes,7|10,9,Supplements
+63,Caffeine,24,9,Supplements
+64,Probiotic,32|6,9,Supplements
+65,Supplement Timing,56|57|21,9,Supplements
+66,Supplement Stacking,56|58|59|60,9,Supplements
+67,Tracking Macros,20|34|35,10,Tracking & Adherence
+68,MyFitnessPal Usage,67,10,Tracking & Adherence
+69,Weighing Food,35|67,10,Tracking & Adherence
+70,Scale Weight Trends,49|50,10,Tracking & Adherence
+71,Progress Photos,11|70,10,Tracking & Adherence
+72,Weekly Check-In,70|71|67,10,Tracking & Adherence
+73,Adherence Rate,72,10,Tracking & Adherence
+74,Flexible Dieting,20|73,10,Tracking & Adherence
+75,80/20 Rule,74,10,Tracking & Adherence
+76,Vacation Recovery,75|15|54,11,Adaptive Strategies
+77,Holiday Eating Strategy,75|22,11,Adaptive Strategies
+78,Restaurant Ordering,34|36|74,11,Adaptive Strategies
+79,Travel Nutrition,78|57,11,Adaptive Strategies
+80,Stress Eating Management,73|74,11,Adaptive Strategies
+81,Sleep and Recovery,60|25,11,Adaptive Strategies
+82,Plateau Breaking,72|15|54|51,11,Adaptive Strategies
+83,Diet Break,82|16,11,Adaptive Strategies
+84,Reverse Dieting,83|16|9,11,Adaptive Strategies
+85,Metabolic Adaptation,82|8|15,11,Adaptive Strategies
+86,Refeed Day,85|4|14,11,Adaptive Strategies
+87,Deload Week,52|81,11,Adaptive Strategies
+88,Hot Weather Nutrition,7|62|44,12,Seasonal & Context
+89,Cold Weather Nutrition,58|36,12,Seasonal & Context
+90,Flu Season Protocol,61|58|64,12,Seasonal & Context
+91,Allergy Season Awareness,6|34,12,Seasonal & Context
+92,Hydration in Heat,7|62|88,12,Seasonal & Context
+93,Warming Meals,89|38,12,Seasonal & Context
+94,Cold Meals and Salads,88|38,12,Seasonal & Context
+95,Immune Support Foods,90|26|32,12,Seasonal & Context
+96,Grocery Pickup Services,41|42,13,Shopping Integration
+97,Instacart Integration,96,13,Shopping Integration
+98,Walmart Pickup,96,13,Shopping Integration
+99,Kroger ClickList,96,13,Shopping Integration
+100,Weekly Grocery Budget,43|45|41,13,Shopping Integration
